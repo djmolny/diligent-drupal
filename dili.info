@@ -1,3 +1,4 @@
-name = Diligent Arts
+name = Diligent Arts Drupal Utilities
 description = A Drupal module containing a variety of utility functions
+package = Diligent Arts
 core = 7.x
