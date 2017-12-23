@@ -1,0 +1,58 @@
+<?php
+
+// Confidential and Proprietary Information of Diligent Arts, LLC (www.diligentarts.com)
+// All rights reserved.
+
+// This module is a semi-random collection of handy Drupal utility functions
+
+
+
+// Extract a value from a Drupal field
+function _dili_efv($f) {
+
+  if (isset($f['und'])) {
+    return $f['und'][0]['value'];
+  } else {
+    return NULL;
+  }
+
+}
+
+
+// Utility function to wrap a value in a Drupal field structure
+function _dili_sfv($v) {
+  return array('und' => array(array('value' => $v)));
+}
+
+
+
+/* Check if user has role/roles */
+function _dili_user_has_role($roles, $u = NULL) {
+
+  // Use the current user if none is specified
+  global $user;
+  if (empty($u)) { $u = $user; }
+
+  // If $roles is a scalar, wrap it in an array
+  if (!is_array($roles)) { $roles = array($roles); }
+
+  // Create an array of Drupal roles
+  static $alpha_roles = Array();
+
+  // Retrieve all roles from the Drupal database and
+  // arrange them in a name => rid array.
+  if (empty($alpha_roles)) {
+    $r = db_select('role', 'r')->fields('r')->execute()->fetchAll();
+    foreach($r as $n => $obj) { $alpha_roles[$obj->name] = $obj->rid; }
+  }
+
+  // If role names were given, change them to integers
+  foreach($roles as $k => $v) {
+    if (preg_match('/[^0-9]/', $v)) { $roles[$k] = $alpha_roles[$v]; }
+  }
+
+  // Now for the payoff: return TRUE if there's any commonality between
+  // the user's roles and the roles specified in the function parameter
+  return !!count(array_intersect($roles, array_values($u->roles)));
+
+};
