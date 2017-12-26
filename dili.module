@@ -53,12 +53,12 @@ function _dili_user_has_role($roles, $u = NULL) {
 
   // Now for the payoff: return TRUE if there's any commonality between
   // the user's roles and the roles specified in the function parameter
-  return !!count(array_intersect($roles, array_values($u->roles)));
+  return !!count(array_intersect($roles, array_keys($u->roles)));
 
-};
+}
 
 
-// Convenience wrapper method for the Drupal watchdog() function.
+// Convenience wrapper method for the Drupal watchdog() function
 // Wraps the data to be displayed in an HTML <pre> block and invokes
 // PHP's print_r to pretty-print whatever data type or structure is provided.
 function _dili_dog($data, $severity = WATCHDOG_NOTICE) {
