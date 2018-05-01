@@ -62,5 +62,5 @@ function _dili_user_has_role($roles, $u = NULL) {
 // Wraps the data to be displayed in an HTML <pre> block and invokes
 // PHP's print_r to pretty-print whatever data type or structure is provided.
 function _dili_dog($data, $severity = WATCHDOG_NOTICE) {
-  watchdog('dili', '<pre>' . print_r($data, TRUE) . '</pre>', array(), $severity);
+  watchdog('dili', '<pre>' . htmlspecialchars(print_r($data, TRUE)) . '</pre>', array(), $severity);
 }
