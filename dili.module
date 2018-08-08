@@ -20,8 +20,8 @@ function _dili_efv($f) {
 
 
 // Utility function to wrap a value in a Drupal field structure
-function _dili_sfv($v) {
-  return array('und' => array(array('value' => $v)));
+function _dili_sfv($v, $tag = 'value') {
+  return array('und' => array(array($tag => $v)));
 }
 
 
