@@ -8,10 +8,10 @@
 
 
 // Extract a value from a Drupal field
-function _dili_efv($f) {
+function _dili_efv($f, $tag = 'value') {
 
   if (isset($f['und'])) {
-    return $f['und'][0]['value'];
+    return $f['und'][0][$tag];
   } else {
     return NULL;
   }
