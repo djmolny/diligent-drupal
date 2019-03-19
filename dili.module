@@ -7,16 +7,25 @@
 
 
 
-// Extract a value from a Drupal field
-function _dili_efv($f, $tag = 'value') {
+// Extract value(s) from a Drupal field
+function _dili_efv($f, $val = 'value') {
 
-  if (isset($f['und'])) {
-    return $f['und'][0][$tag];
-  } else {
+  if (!isset($f['und'])) { return NULL; }
+
+  $a = Array();
+
+  foreach($f['und'] as $entry) { $a[] = $entry[$val]; }
+  
+  if (sizeof($a) == 0) {
     return NULL;
+  } elseif (sizeof($a) == 1) {
+    return $a[0];
+  } else {
+    return $a;
   }
+  
+} 
 
-}
 
 
 // Utility function to wrap a value in a Drupal field structure
